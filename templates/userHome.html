@@ -2,6 +2,481 @@
   <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+
+  <meta charset="ISO-8859-1">
+
+  <style>
+    header {
+      background-color: rgba(255, 183, 3, 0.7);
+      padding: 10px;
+      height: 125px;
+      display: flex;
+      justify-content: space-between; 
+      align-items: center; 
+    }
+    .title {
+  font-size: 40px; 
+  margin-left: 10px; 
+  color: white;
+  display: inline;
+  line-height: 1;
+    }
+
+    .logo {
+      width: 100px; 
+      height: auto;
+      order: -1; 
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+    }
+    .title-tagline {
+      color: white;
+      display: flex;
+      flex-direction: column;
+    }
+    .tagline{
+      font-size: 20px;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .nav_list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      color: white;
+    }
+
+    .nav_list ul li {
+      margin-left: 20px; 
+
+    }
+
+    footer{
+      background-color: rgba(255, 183, 3, 0.7);
+      padding: 10px;
+      height: 25%;
+    }
+    body {
+      font-family: sans-serif;
+      background-color: #eeeeee;
+    }
+
+    .file-upload {
+      background-color:rgba(255, 255, 255, 0.6);
+      width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .file-upload-btn {
+      width: 100%;
+      margin: 0;
+      color: #fff;
+      background: #1FB264;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      border-bottom: 4px solid #15824B;
+      transition: all .2s ease;
+      outline: none;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .file-upload-btn:hover {
+      background: #1AA059;
+      color: #ffffff;
+      transition: all .2s ease;
+      cursor: pointer;
+    }
+
+    .file-upload-btn:active {
+      border: 0;
+      transition: all .2s ease;
+    }
+
+    .file-upload-content {
+      display: none;
+      text-align: center;
+    }
+
+    .file-upload-input {
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      outline: none;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .image-upload-wrap {
+      margin-top: 20px;
+      border: 4px dashed #1FB264;
+      position: relative;
+    }
+
+    .image-dropping,
+    .image-upload-wrap:hover {
+      background-color: #1FB264;
+      border: 4px dashed #ffffff;
+    }
+
+    .image-title-wrap {
+      padding: 0 15px 15px 15px;
+      color: #222;
+    }
+
+    .drag-text {
+      text-align: center;
+    }
+
+    .drag-text h3 {
+      font-weight: 100;
+      text-transform: uppercase;
+      color: #15824B;
+      padding: 60px 0;
+    }
+
+    .file-upload-image {
+      max-height: 200px;
+      max-width: 200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .remove-image {
+      width: 200px;
+      margin: 0;
+      color: #fff;
+      background: #cd4535;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      border-bottom: 4px solid #b02818;
+      transition: all .2s ease;
+      outline: none;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .remove-image:hover {
+      background: #c13b2a;
+      color: #ffffff;
+      transition: all .2s ease;
+      cursor: pointer;
+    }
+
+    .remove-image:active {
+      border: 0;
+      transition: all .2s ease;
+    }
+
+    button {
+      color: green;
+      background-color: white;
+      font-size: 19px;
+      border: 1px solid #2d63c8;
+      padding: 15px 50px;
+      cursor: pointer;
+      width: 250px;
+    }
+
+    button:hover {
+      color: #2d63c8;
+      background-color: #ffffff;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .bg-img {
+        background-image: url("../static/images/background-2.jpg");
+        height: 100vh;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .card-footer{
+      align-items: center;
+      color: black;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .quote{
+      font-style: italic;
+    }
+    .visit{
+      font-size:14px;
+    }
+
+    .contact{
+      margin-right: 10px;
+    }
+
+  </style>
+  <script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          $('.image-upload-wrap').hide();
+
+          $('.file-upload-image').attr('src', e.target.result);
+          $('.file-upload-content').show();
+
+          $('.image-title').html(input.files[0].name);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+
+      } else {
+        removeUpload();
+      }
+    }
+
+    function removeUpload() {
+      $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+      $('.file-upload-content').hide();
+      $('.image-upload-wrap').show();
+    }
+    $('.image-upload-wrap').bind('dragover', function () {
+      $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+      $('.image-upload-wrap').removeClass('image-dropping');
+    });
+
+    function scrollToFooter() {
+    document.querySelector('#contact-section').scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+
+
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="logo-title">
+      <img src="../static/images/favicon.ico" alt="logo" class="logo">
+      <div class="title-tagline">
+        <span class="title">Dishcovery</span>
+        <span class="tagline">Ingredients. Inspire. Indulge</span>
+      </div>
+    </div>
+    <nav class="nav_list">
+      <ul>
+        <li><a href="../templates/userHome.html">Home</a></li>
+        <li><a href="#" onclick="scrollToFooter()">Contact</a></li>
+        <li><a href="/" >Sign Out</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="bg-img">
+  <br>
+  <br>
+  <br>
+  <form action="fileupload" method="post" enctype="multipart/form-data">
+    <div class="file-upload">
+      <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
+        File</button>
+
+      <div class="image-upload-wrap">
+        <input type="hidden" value="{{subject}}" name="subject">
+        <input class="file-upload-input" type="file" name='imageupload' onchange="readURL(this);"
+          accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
+    <div class=" drag-text">
+        <h3>Drag and drop a file or select add File</h3>
+      </div>
+    </div>
+    <div class="file-upload-content">
+      <br>
+      
+      <div class="image-title-wrap">
+        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded
+            Image</span></button>
+      </div>
+    </div>
+
+    </div>
+    <br>
+    <div class='text-center mt-2 container input-group mb-5' style="width: 40%;">
+      <div class="input-group-prepend">
+          
+      </div>
+         
+    </div>
+    <center>
+      <button type="submit">upload</button>
+    </center>
+  </form>
+</main>
+<footer id="contact-section">
+
+  <div class="card-footer">
+    <span class="quote">"You don't need a silver fork to eat good food"</span>
+    <span class="visit">To know more,visit</span>
+    <div>
+    <a href="https://instagram.com/budgetbytes?igshid=NzZlODBkYWE4Ng==" target="_blank">
+      <i class="fab fa-instagram contact"></i>
+    </a>
+    <a href="https://m.facebook.com/thefoodblog.net" target="_blank">
+      <i class="fab fa-facebook contact"></i>
+    </a>
+    <a href="mailto:kveena@calstatela.edu">
+      <i class="far fa-envelope"></i>
+    </a>
+  </div>
+    &copy; 2023 Dishcovery
+  </div>
+</footer>
+</body> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<head>
+  <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <meta charset="ISO-8859-1">
 
@@ -229,3 +704,4 @@
   </form>
 
 </body>
+-->

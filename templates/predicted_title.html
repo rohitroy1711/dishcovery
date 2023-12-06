@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Title of Dish</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('../static/images/background-2.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            max-width: 75px;
+            margin-top: -30px;
+        }
+
+       
+
+        .textbox-style {
+            width: 100%;
+            height: 40px;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .textbox-style:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            width: 320px;
+            height: 40px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            outline: none;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul{
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
+            margin-left: 20px;
+            list-style-type: none;
+            color: black;
+        }
+
+        li.card {
+            background-color: #ffffff; /* Card background color */
+            border: 1px solid #ddd; /* Border around the card */
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* Optional: adds shadow to the card */
+            margin-bottom: 10px; /* Margin between cards */
+            padding: 15px; /* Padding inside the card */
+            border-radius: 5px; /* Optional: rounds the corners of the card */
+        }
+        
+       
+        li.card:hover {
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <a href="../templates/userHome.html">
+            <img src="../static/images/dishcovery_logo.png" alt="Company Logo" class="logo">
+        </a>
+    </div>
+    <h1>Prediction Dish Title</h1>
+    <p><ul>
+        {% for item in prediction %}
+            <li class="card">{{ item }}</li>
+        {% endfor %}
+    </ul></p>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Title of Dish</title>
+    <style>
+        .textbox-style {
+            width: 300px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prediction Dish Title</h1>
+    <input type="text" id="predictionResult" name="predictionResult" class="textbox-style" value="{{ prediction }}">
+</body>
+</html>
+-->

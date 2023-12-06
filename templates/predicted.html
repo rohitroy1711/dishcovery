@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('../static/images/background_login.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            color: #969494;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        h3 {
+            color: #969494;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
+            margin-left: 20px;
+        }
+
+        .textbox-style {
+            width: 100%;
+            height: 40px;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .textbox-style:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            width: 100%;
+            height: 40px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .logo {
+            max-width: 75px; /* Set the maximum width of the logo */
+            margin-top: -75px; /* Adjust the top margin */
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <a href="../templates/userHome.html">
+            <img src="../static/images/dishcovery_logo.png" alt="Company Logo" class="logo">
+        </a>
+    </div>
+    <h1>Prediction Result</h1>
+    <form action="/process_text" method="post">
+        <h2>Detected Items:</h2>
+        <h3>Add Items (Comma Separated)</h3>
+        <input type="text" id="predictionResult" name="predictionResult" class="textbox-style" placeholder="add items...." value="{{ prediction }}">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <style>
+        .textbox-style {
+            width: 300px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prediction Result</h1>
+    <form action="/process_text" method="post">
+        <input type="text" id="predictionResult" name="predictionResult" class="textbox-style" value="{{ prediction }}">
+        <button type="submit">Send Text</button>
+    </form>
+</body>
+</html>
+-->

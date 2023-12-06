@@ -74,6 +74,49 @@ def userRegister1():
 def userHome():
     return render_template("userHome.html")
 
+@app.route("/process_text", methods=['post'])
+def process_text():
+        # Load dataset from CSV
+    csv_path = './content/Food Ingredients and Recipe Dataset with Image Name Mapping.csv'
+    recipes_df = pd.read_csv(csv_path)
+    # Use TF-IDF to vectorize ingredients
+    tfidf_vectorizer = TfidfVectorizer(stop_words='english')
+    tfidf_matrix = tfidf_vectorizer.fit_transform(recipes_df['Ingredients'])
+
+    # Compute cosine similarity between recipes
+    cosine_similarities = linear_kernel(tfidf_matrix, tfidf_matrix)
+
+    user_ingredients = request.form.get('predictionResult')
+    print(user_ingredients)
+    print("going to method")
+    recommended_recipes = recommend_recipes(user_ingredients, recipes_df, tfidf_vectorizer, cosine_similarities,tfidf_matrix)
+
+    # Print the recommended recipes
+    print("Recommended Recipes:")
+    dish_titles=''
+    for recipe in recommended_recipes:
+        dish_titles= recipe+", "+dish_titles
+    session['result'] = dish_titles
+    return redirect('/show_titles')
+
+def remove_last_comma(s):
+    # Find the position of the last comma
+    last_comma = s.rfind(',')
+    # If a comma is found, slice the string to remove it
+    if last_comma != -1:
+        s = s[:last_comma] + s[last_comma+1:]
+    return s
+
+
+@app.route('/show_titles')
+def show_titles():
+    # Retrieve the result from the session
+    result = session.get('result', 'No result')
+    result = remove_last_comma(result)
+    #items = comma_separated_string.split(',')
+    result = result.split(',')
+    return render_template('predicted_title.html', prediction=result)
+  
 
 @app.route("/fileupload", methods=['post'])
 def fileupload():
@@ -88,28 +131,39 @@ def fileupload():
     # Now call the predict function with the processed image
     result = predict(input_arr)
     print(result)
-    #file_id=mongo.save_file(img.filename,img)
     print("******************************************************")
+    session['result'] = result
+    return redirect('/show_result')
+
+@app.route('/show_result')
+def show_result():
+    # Retrieve the result from the session
+    result = session.get('result', 'No result')
+    return render_template('predicted.html', prediction=result)
+
+    #file_id=mongo.save_file(img.filename,img)
+    
     # Load dataset from CSV
-    csv_path = './content/Food Ingredients and Recipe Dataset with Image Name Mapping.csv'
-    recipes_df = pd.read_csv(csv_path)
+    #csv_path = './content/Food Ingredients and Recipe Dataset with Image Name Mapping.csv'
+    #recipes_df = pd.read_csv(csv_path)
     # Use TF-IDF to vectorize ingredients
-    tfidf_vectorizer = TfidfVectorizer(stop_words='english')
-    tfidf_matrix = tfidf_vectorizer.fit_transform(recipes_df['Ingredients'])
+    #tfidf_vectorizer = TfidfVectorizer(stop_words='english')
+    #tfidf_matrix = tfidf_vectorizer.fit_transform(recipes_df['Ingredients'])
 
     # Compute cosine similarity between recipes
-    cosine_similarities = linear_kernel(tfidf_matrix, tfidf_matrix)
+    #cosine_similarities = linear_kernel(tfidf_matrix, tfidf_matrix)
 
-    user_ingredients = result+',bolognese'
-    print(user_ingredients)
-    print("going to method")
-    recommended_recipes = recommend_recipes(user_ingredients, recipes_df, tfidf_vectorizer, cosine_similarities,tfidf_matrix)
+    #user_ingredients = result+',bolognese'
+    #print(user_ingredients)
+    #print("going to method")
+    #recommended_recipes = recommend_recipes(user_ingredients, recipes_df, tfidf_vectorizer, cosine_similarities,tfidf_matrix)
 
     # Print the recommended recipes
-    print("Recommended Recipes:")
-    for recipe in recommended_recipes:
-        print("-", recipe)
-    return redirect("/home")
+    #print("Recommended Recipes:")
+    #for recipe in recommended_recipes:
+    #    print("-", recipe)
+    #print("******************************************************")
+    #return redirect("/home")
 
 
 if __name__=="__main__":
